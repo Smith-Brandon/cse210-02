@@ -21,7 +21,6 @@ class Player:
             self.card1 = self.card.draw_card()
 
             while self.playing:
-
                 self.get_inputs()
                 self.do_updates()
                 self.do_outputs()
