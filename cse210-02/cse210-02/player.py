@@ -9,16 +9,18 @@ class Player:
         '''Create values for the player class to be initalized.'''
         self.playing = True
         self.score = 300
+        self.card = Card()
+        self.card1 = 0
+        self.guess = ""
 
 
     def start_game(self):
             '''Starts the game by going throuhg all required methods in order to play. The order will be 
             Show card, Draw card, Player guess, update points, and repeat until player no longer wishes
             continue or player runs out of points.'''
-            card1 = self.draw_card()
+            self.card1 = self.card.draw_card()
 
-            while self.is_playing:
-
+            while self.playing:
                 self.get_inputs()
                 self.do_updates()
                 self.do_outputs()
@@ -35,29 +37,28 @@ class Player:
         # If keep_playing is false return
         if not self.playing:
             return
-        # Repeated code from deck since I was unable to grab it
-        suits = ["Spades", "Hearts", "Clubs", "Diamonds"]
-        card_values = {"A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6,
-               "7": 7, "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13}
+        # Card1 values
+        point1 = list(self.card1.keys())[0]
+        suit1 = list(self.card1.values())[0]
 
         # Get new random card if the same card is drawn redraw
         card = Card()
-        #new_card = card.point # Having a rough time getting this to return a new random value instead of old which creates infinite loop in while
-        new_card = random.choice(list(card_values.keys())) # Temp solution
+        new_card = card.draw_card()
+
+        # Card2 values
+        point2 = list(new_card.keys())[0]
+        suit2 = list(new_card.values())[0]
+
+        # Check if the same card was drawn
         if(new_card == self.card1):
             while(new_card == self.card1):
                 card = Card()
-                #new_card = card.point
-                new_card = random.choice(list(card_values.keys()))
-
-        # Get number card value
-        card_one = card_values.get(self.card1)
-        card_two = card_values.get(new_card)
+                new_card = card.draw_card()
 
         # Get correct answer
-        if(card_two < card_one):
+        if(point2 < point1):
             answer = "l"
-        elif(card_two > card_one):
+        elif(point2 > point1):
             answer = "h"
         
         # Update score value
@@ -67,7 +68,15 @@ class Player:
             self.score -= 75
 
         # Set the "new_card" as card1 for next round
-        self.card1 = new_card
+        self.card1 = {point2: suit2}
+
+        # Check for end of game
+        if(self.score == 0):
+            userInput = input("Do you want to play again: [y/n]: ")
+            if (userInput.lower == "y"):
+                self.playing = True
+            elif(userInput.lower == "n"):
+                self.playing = False
         pass
 
     '''Method comments'''
