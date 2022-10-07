@@ -30,11 +30,12 @@ click "run".
 The project files and folders are organized as follows:
 
 ```
-root                    (project root folder)
-+-- deck.py             (deck class file)
-+-- player.py           (player class file)
-+-- __main__.py         (program entry point)
-+-- README.md           (general information)
+root                        (project root folder)
+  +-- hilo                  (foolder holding all files)
+    +-- __main__.py         (program entry point)
+    +-- deck.py             (deck class file)
+    +-- player.py           (player class file)
+    +-- README.md           (general information)
 ```
 
 ## Required Technologies
