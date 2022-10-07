@@ -20,6 +20,16 @@ class Player:
         '''Starts the game by going through all required methods in order to play. The order will be 
         draw_card, get_guess, do_updates, do_outputs, continue_playing, and repeat until player no longer wishes
         continue or player runs out of points.'''
+        print()
+        print("Welcome to Hi-Lo! A card game testing your luck.")
+        print("The game is simple.  You will be shown a card")
+        print("and you must guess whether the next card will")
+        print("be higher(h) or lower(l) if you guess correctly")
+        print("you earn 100 points but if you guess incorrectly")
+        print("you will lose 75 points.  You can play as long ")
+        print("as you would like but if you reach 0 the game")
+        print("ends.  Good luck and have fun!")
+        print()
         self.card1 = self.card.draw_card()
 
         while self.playing:
@@ -79,8 +89,9 @@ class Player:
         self.card1 = {point2: suit2}
 
         # Check for end of game
-        if (self.score == 0):
+        if (self.score <= 0):
             print("You lost!")
+            self.playing = False
         pass
 
     def continue_playing(self):
@@ -89,18 +100,29 @@ class Player:
         Args:
             self (Player): An instance of the player
         """
-        cont_game = input("Do you want to continue the game? [y/n] ")
-        if cont_game == "y":
-            self.playing = True
-        elif cont_game == "n":
-            self.playing = False
-        print("\n")
+        if self.playing == False:
+            pass
+        else:
+            cont_game = input("Do you want to continue the game? [y/n] ")
+            if cont_game == "y":
+                self.playing = True
+            elif cont_game == "n":
+                self.playing = False
+            print("\n")
 
 
     def do_outputs(self):
-        point = list(self.card1.keys())[0]
-        suit = list(self.card1.values())[0]
-        print(f"Next card was: {point} of {suit}")
+        """Prints the what the next card and the score after the updated score
+        Args: 
+            self (Player): An instance of the player
+        """
+        # If statement ends the game when the player hits zero
+        if self.playing == False:
+            pass
+        else:
+            point = list(self.card1.keys())[0]
+            suit = list(self.card1.values())[0]
+            print(f"Next card was: {point} of {suit}")
 
-        print(f"Your score is: {self.score}")
-        pass
+            print(f"Your score is: {self.score}")
+            pass
