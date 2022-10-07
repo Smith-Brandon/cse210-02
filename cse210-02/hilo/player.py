@@ -48,7 +48,12 @@ class Player:
         suit = list(self.card1.values())[0]
         print(f"The card is {point} of {suit}")
 
-        self.guess = input("Higher or lower? [h/l] ")
+        self.guess = None
+
+        while self.guess != "h" and self.guess != "l":
+            self.guess = input("Higher or lower? [h/l] ").lower()
+            if self.guess != "h" and self.guess != "l":
+                print("That is not a valid input. Please enter a valid input.")
 
     def do_updates(self):
         # If keep_playing is false return
@@ -101,15 +106,42 @@ class Player:
             self (Player): An instance of the player
         """
         if self.playing == False:
-            pass
+            new_game = None
+            while new_game != "y" and new_game != "n":
+                new_game = input(
+                    "Would you like to start a new game? [y/n] ").lower()
+                if new_game == "y":
+                    self.restart_game()
+                elif new_game == "n":
+                    quit()
+                else:
+                    print("Invalid input. Please enter a valid input.")
         else:
-            cont_game = input("Do you want to continue the game? [y/n] ")
-            if cont_game == "y":
-                self.playing = True
-            elif cont_game == "n":
-                self.playing = False
+            cont_game = None
+            while cont_game != "y" and cont_game != "n":
+                cont_game = input(
+                    "Do you want to continue the game? [y/n] ").lower()
+                if cont_game == "y":
+                    self.playing = True
+                elif cont_game == "n":
+                    self.playing = False
+                else:
+                    print("Invalid input. Please enter a valid input.")
             print("\n")
 
+    def restart_game(self):
+        """Resets all values to their initial state
+
+        Args:
+            self (Player): An instance of the player
+        """
+        self.playing = True
+        self.score = 300
+        self.card = Card()
+        self.card1 = 0
+        self.new_card = 0
+        self.guess = ""
+        self.start_game()
 
     def do_outputs(self):
         """Prints the what the next card and the score after the updated score
