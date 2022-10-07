@@ -14,6 +14,7 @@ class Player:
         self.score = 300
         self.card = Card()
         self.card1 = 0
+        self.new_card = 0
         self.guess = ""
 
     def start_game(self):
@@ -23,9 +24,10 @@ class Player:
         self.card1 = self.card.draw_card()
 
         while self.playing:
-            self.get_inputs()
+            self.get_guess()
             self.do_updates()
             self.do_outputs()
+            self.continue_playing()
 
     def get_guess(self):
         """Asks the user if they think the next card is higher or lower
@@ -33,9 +35,14 @@ class Player:
         Args:
             self (Player): An instance of the player
         """
+        point = list(self.card1.keys())[0]
+        suit = list(self.card1.values())[0]
+        print(f"The card is {point} of {suit}")
+
         self.guess = input("Higher or lower? [h/l] ")
 
     def do_updates(self):
+        answer = ""
         # If keep_playing is false return
         if not self.playing:
             return
@@ -74,11 +81,7 @@ class Player:
 
         # Check for end of game
         if (self.score == 0):
-            userInput = input("Do you want to play again: [y/n]: ")
-            if (userInput.lower == "y"):
-                self.playing = True
-            elif (userInput.lower == "n"):
-                self.playing = False
+            print("You lost!")
         pass
 
     def continue_playing(self):
@@ -92,6 +95,13 @@ class Player:
             self.playing = True
         elif cont_game == "n":
             self.playing = False
+        print("\n")
+
 
     def do_outputs(self):
+        point = list(self.card1.keys())[0]
+        suit = list(self.card1.values())[0]
+        print(f"Next card was: {point} of {suit}")
+
+        print(f"Your score is: {self.score}")
         pass
