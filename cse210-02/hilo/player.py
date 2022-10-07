@@ -56,6 +56,7 @@ class Player:
                 print("That is not a valid input. Please enter a valid input.")
 
     def do_updates(self):
+        answer = ""
         # If keep_playing is false return
         if not self.playing:
             return
