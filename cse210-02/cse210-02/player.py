@@ -1,4 +1,3 @@
-from sys import setdlopenflags
 from deck import Card
 
 
@@ -18,8 +17,8 @@ class Player:
         self.guess = ""
 
     def start_game(self):
-        '''Starts the game by going throuhg all required methods in order to play. The order will be 
-        Show card, Draw card, Player guess, update points, and repeat until player no longer wishes
+        '''Starts the game by going through all required methods in order to play. The order will be 
+        draw_card, get_guess, do_updates, do_outputs, continue_playing, and repeat until player no longer wishes
         continue or player runs out of points.'''
         self.card1 = self.card.draw_card()
 
@@ -42,7 +41,6 @@ class Player:
         self.guess = input("Higher or lower? [h/l] ")
 
     def do_updates(self):
-        answer = ""
         # If keep_playing is false return
         if not self.playing:
             return
@@ -58,11 +56,12 @@ class Player:
         point2 = list(new_card.keys())[0]
         suit2 = list(new_card.values())[0]
 
-        # Check if the same card was drawn
-        if (new_card == self.card1):
+        # Check if the new card has the same value as the old card
+        if (point1 == point2):
             while (new_card == self.card1):
                 card = Card()
                 new_card = card.draw_card()
+                point2 = list(new_card.keys())[0]
 
         # Get correct answer
         if (point2 < point1):
