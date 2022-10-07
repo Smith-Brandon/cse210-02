@@ -1,3 +1,4 @@
+from sys import setdlopenflags
 from deck import Card
 
 
@@ -37,6 +38,7 @@ class Player:
         point = list(self.card1.keys())[0]
         suit = list(self.card1.values())[0]
         print(f"The card is {point} of {suit}")
+
         self.guess = input("Higher or lower? [h/l] ")
 
     def do_updates(self):
@@ -94,6 +96,7 @@ class Player:
         elif cont_game == "n":
             self.playing = False
         print("\n")
+
 
     def do_outputs(self):
         point = list(self.card1.keys())[0]
