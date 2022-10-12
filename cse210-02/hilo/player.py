@@ -56,7 +56,7 @@ class Player:
                 print("That is not a valid input. Please enter a valid input.")
 
     def do_updates(self):
-        answer = ""
+        # answer = ""
         # If keep_playing is false return
         if not self.playing:
             return
@@ -72,17 +72,27 @@ class Player:
         point2 = list(new_card.keys())[0]
         suit2 = list(new_card.values())[0]
 
+        # Convert card 1 value to usable int value
+        point1int = Point(point1)
+        point1int = point1int.convert_to_int()
+
+        # Convert card 2 value to usable int value
+        point2int = Point(point2)
+        point2int = point2int.convert_to_int()
+
         # Check if the new card has the same value as the old card
-        if (point1 == point2):
-            while (new_card == self.card1):
+        if (point1int == point2int):
+            while (point1int == point2int):
                 card = Card()
                 new_card = card.draw_card()
                 point2 = list(new_card.keys())[0]
+                point2int = Point(point2)
+                point2int = point2int.convert_to_int()
 
         # Get correct answer
-        if (point2 < point1):
+        if(point2int < point1int):
             answer = "l"
-        elif (point2 > point1):
+        elif(point2int > point1int):
             answer = "h"
 
         # Update score value
@@ -159,3 +169,24 @@ class Player:
 
             print(f"Your score is: {self.score}")
             pass
+
+
+class Point():
+
+        def __init__(self, point):
+            self.point = point
+
+        def convert_to_int(self):
+            # change point value to a int variable for comparison
+            if (self.point == 'K'):
+                pointint = 13
+            elif (self.point == 'Q'):
+                pointint = 12        
+            elif (self.point == 'J'):
+                pointint = 11
+            elif (self.point == 'A'):
+                pointint = 1
+            else:
+                pointint = int(self.point)
+
+            return pointint
